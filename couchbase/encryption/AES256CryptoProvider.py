@@ -11,7 +11,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         super(AES256CryptoProvider, self).__init__()
         self.keystore = keystore
         # TODO: move this into keys?
-        self.authSecret = 'myhmackey'
+        self.authSecret = b'myhmackey'
 
     def load_key(self, type, keyid):
         """
@@ -69,7 +69,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         cipher = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend())
         encryptor = cipher.encryptor()
 
-        value = ''
+        value = b''
         for part in self.chunker(input, 16):
             if len(part) < 16:
                 part = self.pad_value(part)
@@ -90,7 +90,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         cipher = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend())
         decryptor = cipher.decryptor()
 
-        value = ''
+        value = b''
         for part in self.chunker(input, 16):
             if len(part) < 16:
                 part = self.pad_value(part)
@@ -102,7 +102,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
 
     @staticmethod
     def chunker(seq, size):
-        return (seq[pos:pos + size] for pos in xrange(0, len(seq), size))
+        return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
     @staticmethod
     def pad_value(value):
