@@ -24,6 +24,9 @@ document = {'message': 'The old grey goose jumped over the wrickety gate.'}
 encrypted_document = bucket.encrypt_document(document,
     [{'alg': 'AES-256-HMAC-SHA256', 'name': 'message', 'kid': 'mypublickey'}],
     prefix)
+
+# decrypt document using registered provider
+decrypted_document = bucket.decrypt_document(encrypted, prefix)
 ```
 
 The output JSON looks like the below and can be stored in Couchbase:
