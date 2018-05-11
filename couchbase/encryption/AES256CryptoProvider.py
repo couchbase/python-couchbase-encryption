@@ -85,7 +85,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         padded_key = self.pad_value(key)
         encryptor = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend()).encryptor()
 
-        value = ''
+        value = b''
         padded_input = self.pad_value(input)
         for part in self.split(padded_input, self.block_size):
             value += encryptor.update(part)
@@ -103,7 +103,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         padded_key = self.pad_value(key)
         decryptor = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend()).decryptor()
 
-        value = ''
+        value = b''
         for part in self.split(input, self.block_size):
             value += decryptor.update(part)
 
@@ -122,7 +122,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
 
         padder = padding.PKCS7(128).padder()
 
-        data = ''
+        data = b''
         for part in self.split(value, self.block_size):
             data += padder.update(part)
 
@@ -132,7 +132,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
     def unpad_value(self, value):
         unpadder = padding.PKCS7(128).unpadder()
 
-        data = ''
+        data = b''
         for part in self.split(value, self.block_size):
             data += unpadder.update(part)
 
@@ -140,5 +140,5 @@ class AES256CryptoProvider(PythonCryptoProvider):
         return data
 
     @staticmethod
-    def split(str, num):
-        return [ str[start:start+num] for start in range(0, len(str), num) ]
+    def split(seq, num):
+        return [ seq[start:start+num] for start in range(0, len(seq), num) ]
