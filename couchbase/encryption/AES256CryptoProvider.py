@@ -28,7 +28,6 @@ class AES256CryptoProvider(PythonCryptoProvider):
         self.iv = iv
         self.block_size = block_size
 
-
     def load_key(self, type, keyid):
         """
         Load a decryption/encryption key, as selected by the type
@@ -111,7 +110,6 @@ class AES256CryptoProvider(PythonCryptoProvider):
         value += decryptor.finalize()
         value = self.unpad_value(value)
         return value
-
 
     def pad_value(self, value):
         # hack to remove extra line ending that json-cpp adds
