@@ -1,34 +1,25 @@
-import os, base64, unittest
-from ConfigParser import SafeConfigParser
 from couchbase.crypto import InMemoryKeyStore
-from couchbase.cluster import Cluster, PasswordAuthenticator
-
+from couchbase.tests.base import ConnectionTestCase
 from ..AES256CryptoProvider import AES256CryptoProvider
+import sys
+if sys.version_info >= (3,0):
+    from base64 import decodebytes
+else:
+    from base64 import decodestring as decodebytes
 
-class AES256CryptoProviderTests(unittest.TestCase):
+
+class AES256CryptoProviderTests(ConnectionTestCase):
 
     def test_encrypt_decrypt(self):
-
-        # get connection details from config
-        parser = SafeConfigParser()
-        parser.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
-        host = parser.get('config', 'host')
-        username = parser.get('config', 'username')
-        password = parser.get('config', 'password')
-        bucket_name = parser.get('config', 'bucket')
-
-        # connect to cluster
-        cluster = Cluster(host)
-        cluster.authenticate(PasswordAuthenticator(username, password))
-        bucket = cluster.open_bucket(bucket_name)
-
+        bucket = self.cb
         # create keystore and add public / private keys
         keystore = InMemoryKeyStore()
-        keystore.set_key('mypublickey', '!mysecretkey#9^5usdk39d&dlf)03sL')
-        keystore.set_key('myhmackey', 'myauthpassword')
+        keystore.set_key('mypublickey', b'!mysecretkey#9^5usdk39d&dlf)03sL')
+        keystore.set_key('myhmackey', b'myauthpassword')
 
         # use consistent iv so we can test encrypted value, normally would be random
-        iv = base64.decodestring('Cfq84/46Qjet3EEQ1HUwSg==')
+
+        iv = decodebytes(b'Cfq84/46Qjet3EEQ1HUwSg==')
 
         # set encrypted document prefix and raw JSON document
         prefix = '__crypt_'

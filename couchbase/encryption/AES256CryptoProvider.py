@@ -112,9 +112,6 @@ class AES256CryptoProvider(PythonCryptoProvider):
         return value
 
     def pad_value(self, value):
-        # hack to remove extra line ending that json-cpp adds
-        if value.endswith('\n'):
-            value = value[:-1]
 
         # check if value needs padding
         if len(value) % self.block_size == 0:
