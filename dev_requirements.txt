@@ -1,1 +1,2 @@
 configparser>=3.5.0
+testfixtures==5.4.0

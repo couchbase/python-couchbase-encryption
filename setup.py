@@ -26,6 +26,7 @@ setup(name='couchbase_encryption',
       ],
       install_requires=[
           'couchbase',
+          'cryptography'
       ],
       test_suite='nose.collector',
       tests_require=[
