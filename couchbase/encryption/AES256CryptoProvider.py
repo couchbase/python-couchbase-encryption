@@ -24,7 +24,6 @@ class AES256CryptoProvider(PythonCryptoProvider):
             raise ArgumentError.pyexc("HMAC key name must be provided.")
 
         self.keystore = keystore
-
         self.hmac_key_name = hmac_key_name
         self.iv = iv
         self.block_size = block_size
