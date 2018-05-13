@@ -54,3 +54,12 @@ def get_key(key_id):
     """
     return b'my-secret-key'
 ```
+
+### JavaKeystore
+
+The key store is a managed way to retrieve keys used during encryption / decryption using a JCEKS keystore. An example of using the JavaKeyStore is below:
+
+```python
+# create keystore using path to keystore file and its passphrase
+keystore = JavaKeyStore('path/to/keystore.jceks', 'keystore_passphrase')
+```
