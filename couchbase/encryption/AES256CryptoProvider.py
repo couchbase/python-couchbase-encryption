@@ -13,7 +13,7 @@ from cryptography.hazmat.backends import default_backend
 
 class AES256CryptoProvider(PythonCryptoProvider):
 
-    def __init__(self, keystore, hmac_key_name, iv=None, block_size=32):
+    def __init__(self, keystore, public_key_name, hmac_key_name, iv=None, block_size=32):
         """
         Create a new instance of the AES-256-HMAC-SHA1 encryption provider.
         :param keystore: The keystore used to encrypt / decrypt
@@ -25,10 +25,13 @@ class AES256CryptoProvider(PythonCryptoProvider):
 
         if not keystore:
             raise ArgumentError.pyexc("KeyStore must be provided.")
+        if not public_key_name:
+            raise ArgumentError.pyexc("Public key name must be provided.")
         if not hmac_key_name:
             raise ArgumentError.pyexc("HMAC key name must be provided.")
 
         self.keystore = keystore
+        self.public_key_name = public_key_name
         self.hmac_key_name = hmac_key_name
         self.iv = iv
         self.block_size = block_size
@@ -80,13 +83,13 @@ class AES256CryptoProvider(PythonCryptoProvider):
         h.verify(signature)
         return True
 
-    def encrypt(self, input, key, iv):
+    def encrypt(self, input, iv):
         """
         Encrypt the input string using the key and iv
         :param input: input string
-        :param key: actual encryption key
         :param iv: iv for encryption
         """
+        key = self.keystore.get_key(self.public_key_name)
         padded_key = self.pad_value(key)
         encryptor = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend()).encryptor()
 
@@ -98,13 +101,13 @@ class AES256CryptoProvider(PythonCryptoProvider):
         value += encryptor.finalize()
         return value
 
-    def decrypt(self, input, key, iv):
+    def decrypt(self, input, iv):
         """
         Encrypt the input string using the key and iv
         :param input: input string
-        :param key: actual decryption key
         :param iv: iv for decryption
         """
+        key = self.keystore.get_key(self.public_key_name)
         padded_key = self.pad_value(key)
         decryptor = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend()).decryptor()
 

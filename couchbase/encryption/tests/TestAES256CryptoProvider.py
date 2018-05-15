@@ -23,34 +23,37 @@ class AES256CryptoProviderTests(ConnectionTestCase):
         keystore.set_key('myhmackey', b'myauthpassword')
 
         # use consistent iv so we can test encrypted value, normally would be random
-
         iv = decodebytes(b'Cfq84/46Qjet3EEQ1HUwSg==')
 
         # set encrypted document prefix and raw JSON document
         prefix = '__crypt_'
         document = {'message': 'The old grey goose jumped over the wrickety gate.'}
 
+        # create array of field specs to describe what fields are to be encrypted
+        field_specs = [
+            {'alg': 'AES-256-HMAC-SHA256', 'name': 'message'}
+        ]
+
         # create provider & register with LCB
-        provider = AES256CryptoProvider(keystore, 'myhmackey', iv=iv)
+        provider = AES256CryptoProvider(keystore, 'mypublickey', 'myhmackey', iv=iv)
         bucket.register_crypto_provider('AES-256-HMAC-SHA256', provider)
 
         # encrypt document
-        encrypted = bucket.encrypt_document(document, [{'alg': 'AES-256-HMAC-SHA256', 'name': 'message', 'kid': 'mypublickey'}], prefix)
+        encrypted = bucket.encrypt_fields(document, field_specs, prefix)
 
         # verify encrypted value to ensure cross-SDK compatability
         expected = {
             "__crypt_message": {
                 "alg": "AES-256-HMAC-SHA256",
-                "kid": "mypublickey",
                 "ciphertext": "sR6AFEIGWS5Fy9QObNOhbCgfg3vXH4NHVRK1qkhKLQqjkByg2n69lot89qFEJuBsVNTXR77PZR6RjN4h4M9evg==",
-                "sig": "rT89aCj1WosYjWHHu0mf92S195vYnEGA/reDnYelQsM=",
+                "sig": "eaumA/tCAOKQEdjNKVabTnlurljTvTzjbyfXc7vqZyA=",
                 "iv": "Cfq84/46Qjet3EEQ1HUwSg=="
             }
         }
         self.assertEqual(expected, encrypted)
 
         # decrypt document
-        decrypted = bucket.decrypt_document(encrypted, prefix)
+        decrypted = bucket.decrypt_fields(encrypted, field_specs, prefix)
 
         # verify
         self.assertEqual(document, decrypted)
