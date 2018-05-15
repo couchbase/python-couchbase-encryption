@@ -26,10 +26,13 @@ setup(name='couchbase_encryption',
       ],
       install_requires=[
           'couchbase',
-          'cryptography'
+          'cryptography',
+          'pyjks'
       ],
       test_suite='nose.collector',
       tests_require=[
-          'nose'
+          'nose',
+          'testresources>=0.2.7',
+          'basictracer==2.2.0'
       ],
       zip_safe=False)

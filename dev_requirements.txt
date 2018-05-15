@@ -1,2 +1,4 @@
 configparser>=3.5.0
 testfixtures==5.4.0
+testresources>=0.2.7
+basictracer==2.2.0
