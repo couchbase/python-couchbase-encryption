@@ -9,13 +9,14 @@ The AES256Provider is a symmetric encryption provider for use with Couchbase ser
 The provider can be used like this:
 
 ```python
+from cbencryption import AES256CryptoProvider
 # create insecure key store and register both public and private keys
 keystore = InMemoryKeyStore()
 keystore.set_key('mypublickey', '!mysecretkey#9^5usdk39d&dlf)03sL')
 keystore.set_key('myprivatekey', 'myauthpassword')
 
 # create and register provider
-provider = AES256Provider(keystore, 'myprivatekey')
+provider = AES256CryptoProvider(keystore, 'myprivatekey')
 bucket.register_crypto_provider('AES-256-HMAC-SHA256', provider)
 
 # encrypt document, the alg name must match the provider name and the kid must match a key in the keystore
@@ -60,6 +61,8 @@ def get_key(key_id):
 The key store is a managed way to retrieve keys used during encryption / decryption using a JCEKS keystore. An example of using the JavaKeyStore is below:
 
 ```python
+from cbencryption import JavaKeyStore
+
 # create keystore using path to keystore file and its passphrase
 keystore = JavaKeyStore('path/to/keystore.jceks', 'keystore_passphrase')
 ```
