@@ -4,7 +4,7 @@ Python encryption for use with the Couchbase Server
 
 ## AES-256-HMAC-SHA256
 
-The AES256Provider is a symmetric encryption provider for use with Couchbase server to encrypt fields within a JSON document. The provider requires a keystore and the name of the private key used to sign / verify with. Once a provider has been created it needs to be registered with the bucket and then any calls to encrypt_document and decrypt_document will use the provider.
+The AES256CryptoProvider is a symmetric encryption provider for use with Couchbase server to encrypt fields within a JSON document. The provider requires a keystore and the name of the private key used to sign / verify with. Once a provider has been created it needs to be registered with the bucket and then any calls to encrypt_document and decrypt_document will use the provider.
 
 The provider can be used like this:
 
