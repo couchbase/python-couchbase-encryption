@@ -36,14 +36,6 @@ class AES256CryptoProvider(PythonCryptoProvider):
         self.iv = iv
         self.block_size = block_size
 
-    def load_key(self, type, keyid):
-        """
-        Load a decryption/encryption key, as selected by the type
-        :param type: LCBCRYPTO_KEY_ENCRYPT or LCBCRYPTO_KEY_DECRYPT
-        :param keyid: Key ID to retrieve
-        """
-        return self.keystore.get_key(keyid)
-
     def generate_iv(self):
         """
         Return an IV for use with decryption/encryption.
