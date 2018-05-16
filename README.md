@@ -16,14 +16,14 @@ keystore.set_key('mypublickey', '!mysecretkey#9^5usdk39d&dlf)03sL')
 keystore.set_key('myprivatekey', 'myauthpassword')
 
 # create and register provider
-provider = AES256CryptoProvider(keystore, 'myprivatekey')
+provider = AES256CryptoProvider(keystore, 'mypublickey', 'myprivatekey')
 bucket.register_crypto_provider('AES-256-HMAC-SHA256', provider)
 
 # encrypt document, the alg name must match the provider name and the kid must match a key in the keystore
 prefix = '__crypt_'
 document = {'message': 'The old grey goose jumped over the wrickety gate.'}
 encrypted_document = bucket.encrypt_document(document,
-    [{'alg': 'AES-256-HMAC-SHA256', 'name': 'message', 'kid': 'mypublickey'}],
+    [{'alg': 'AES-256-HMAC-SHA256', 'name': 'message'}],
     prefix)
 
 # decrypt document using registered provider
@@ -36,7 +36,6 @@ The output JSON looks like the below and can be stored in Couchbase:
 {
     "__crypt_message": {
         "alg": "AES-256-HMAC-SHA256",
-        "kid": "mypublickey",
         "ciphertext": "sR6AFEIGWS5Fy9QObNOhbCgfg3vXH4NHVRK1qkhKLQqjkByg2n69lot89qFEJuBsVNTXR77PZR6RjN4h4M9evg==",
         "sig": "rT89aCj1WosYjWHHu0mf92S195vYnEGA/reDnYelQsM=",
         "iv": "Cfq84/46Qjet3EEQ1HUwSg=="
