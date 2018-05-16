@@ -5,7 +5,8 @@
 
 from couchbase.crypto import InMemoryKeyStore
 from couchbase.tests.base import ConnectionTestCase
-from ..AES256CryptoProvider import AES256CryptoProvider
+from cbencryption.AES256CryptoProvider import AES256CryptoProvider
+
 import sys
 if sys.version_info >= (3,0):
     from base64 import decodebytes

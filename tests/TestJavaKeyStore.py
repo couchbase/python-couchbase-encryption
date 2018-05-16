@@ -4,7 +4,7 @@
 # which may be found at https://www.couchbase.com/ESLA-11132015.
 
 import unittest, os, base64
-from ..JavaKeyStore import JavaKeyStore
+from cbencryption.JavaKeyStore import JavaKeyStore
 
 
 class TestJavaKeyStore(unittest.TestCase):

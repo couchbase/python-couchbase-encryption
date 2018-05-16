@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='couchbase_encryption',
+setup(name='cbencryption',
       version='0.1',
       description='JSON encryption API for use with Couchbase Python SDK',
       url='http://github.com/couchbaselabs/python-json-encryption',
@@ -21,8 +21,7 @@ setup(name='couchbase_encryption',
       author_email='PythonPackage@couchbase.com',
       license='MIT', # need to update this
       packages=[
-          'couchbase.encryption',
-          'couchbase.encryption.tests'
+          'cbencryption'
       ],
       install_requires=[
           'couchbase',
