@@ -6,7 +6,7 @@ if os.path.exists('README.md'):
     long_description = open('README.md').read()
 
 setup(name='cbencryption',
-      version='0.1.1',
+      version='0.1.2',
       description='JSON encryption API for use with Couchbase Python SDK',
       long_description=long_description,
       long_description_content_type="text/markdown",
