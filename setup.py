@@ -23,6 +23,7 @@ setup(name='cbencryption',
       packages=[
           'cbencryption'
       ],
+      include_package_data=True,
       install_requires=[
           'couchbase',
           'cryptography',
