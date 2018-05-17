@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(name='cbencryption',
-      version='0.1',
+      version='0.1.1',
       description='JSON encryption API for use with Couchbase Python SDK',
       url='http://github.com/couchbaselabs/python-json-encryption',
       classifiers=[
         'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: MIT License', # fix license
+        'License :: Other/Proprietary License',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
@@ -16,10 +16,10 @@ setup(name='cbencryption',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'
       ],
-      keywords='funniest joke comedy flying circus',
+      keywords='couchbase nosql encryption',
       author='Couchbase, Inc.',
       author_email='PythonPackage@couchbase.com',
-      license='MIT', # need to update this
+      license='Proprietary',
       packages=[
           'cbencryption'
       ],
@@ -32,6 +32,7 @@ setup(name='cbencryption',
       tests_require=[
           'nose',
           'testresources>=0.2.7',
-          'basictracer==2.2.0'
+          'basictracer==2.2.0',
+          'opentracing-pyzipkin'
       ],
-      zip_safe=False)
+      zip_safe=True)
