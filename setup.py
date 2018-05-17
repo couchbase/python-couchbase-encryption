@@ -1,8 +1,15 @@
+import os
 from setuptools import setup
+
+long_description = 'See https://github.com/couchbase/python-couchbase-encryption for more details'
+if os.path.exists('README.md'):
+    long_description = open('README.md').read()
 
 setup(name='cbencryption',
       version='0.1.1',
       description='JSON encryption API for use with Couchbase Python SDK',
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       url='http://github.com/couchbaselabs/python-json-encryption',
       classifiers=[
         'Development Status :: 3 - Alpha',
