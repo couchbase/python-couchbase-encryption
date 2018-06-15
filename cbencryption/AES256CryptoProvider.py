@@ -36,6 +36,12 @@ class AES256CryptoProvider(PythonCryptoProvider):
         self.iv = iv
         self.block_size = block_size
 
+    def _get_hmac_key(self):
+        return self.keystore.get_key(self.hmac_key_name)
+
+    def _get_public_key(self):
+        return self.keystore.get_key(self.public_key_name)
+
     def generate_iv(self):
         """
         Return an IV for use with decryption/encryption.
@@ -50,7 +56,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         Sign the inputs provided.
         :param inputs: List of inputs
         """
-        key = self.keystore.get_key(self.hmac_key_name)
+        key = self._get_hmac_key()
         h = hmac.HMAC(key, hashes.SHA256(), backend=default_backend())
 
         for i in inputs:
@@ -65,7 +71,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         :param inputs: The name of the provider.
         :param signature: Signature
         """
-        key = self.keystore.get_key(self.hmac_key_name)
+        key = self._get_hmac_key()
         h = hmac.HMAC(key, hashes.SHA256(), backend=default_backend())
 
         for i in inputs:
@@ -81,7 +87,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         :param input: input string
         :param iv: iv for encryption
         """
-        key = self.keystore.get_key(self.public_key_name)
+        key = self._get_public_key()
         padded_key = self.pad_value(key)
         encryptor = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend()).encryptor()
 
@@ -99,7 +105,7 @@ class AES256CryptoProvider(PythonCryptoProvider):
         :param input: input string
         :param iv: iv for decryption
         """
-        key = self.keystore.get_key(self.public_key_name)
+        key = self._get_public_key()
         padded_key = self.pad_value(key)
         decryptor = Cipher(algorithms.AES(padded_key), modes.CBC(iv), backend=default_backend()).decryptor()
 
@@ -135,6 +141,9 @@ class AES256CryptoProvider(PythonCryptoProvider):
 
         data += unpadder.finalize()
         return data
+
+    def get_key_id(self):
+        return self.public_key_name
 
     @staticmethod
     def split(seq, num):
