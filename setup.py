@@ -6,7 +6,7 @@ if os.path.exists('README.md'):
     long_description = open('README.md').read()
 
 setup(name='cbencryption',
-      version='0.1.2',
+      version='0.1.3',
       description='JSON encryption API for use with Couchbase Python SDK',
       long_description=long_description,
       long_description_content_type="text/markdown",
@@ -23,7 +23,7 @@ setup(name='cbencryption',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'
       ],
-      keywords='couchbase nosql encryption',
+      keywords='couchbase nosql encryption json',
       author='Couchbase, Inc.',
       author_email='PythonPackage@couchbase.com',
       license='Proprietary',

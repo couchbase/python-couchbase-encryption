@@ -44,12 +44,11 @@ class AES256CryptoProviderTests(ConnectionTestCase):
 
         # verify encrypted value to ensure cross-SDK compatability
         expected = {
-            "__crypt_message": {
-                "alg": "AES-256-HMAC-SHA256",
-                "ciphertext": "sR6AFEIGWS5Fy9QObNOhbCgfg3vXH4NHVRK1qkhKLQqjkByg2n69lot89qFEJuBsVNTXR77PZR6RjN4h4M9evg==",
-                "sig": "eaumA/tCAOKQEdjNKVabTnlurljTvTzjbyfXc7vqZyA=",
-                "iv": "Cfq84/46Qjet3EEQ1HUwSg=="
-            }
+            "__crypt_message": {"alg": "AES-256-HMAC-SHA256",
+                                 "kid": "mypublickey",
+                                 "ciphertext": "sR6AFEIGWS5Fy9QObNOhbCgfg3vXH4NHVRK1qkhKLQqjkByg2n69lot89qFEJuBsVNTXR77PZR6RjN4h4M9evg==",
+                                 "sig": "rT89aCj1WosYjWHHu0mf92S195vYnEGA/reDnYelQsM=",
+                                 "iv": "Cfq84/46Qjet3EEQ1HUwSg=="}
         }
         self.assertEqual(expected, encrypted)
 
