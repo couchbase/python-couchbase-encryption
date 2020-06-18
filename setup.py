@@ -32,7 +32,7 @@ setup(name='cbencryption',
       ],
       include_package_data=True,
       install_requires=[
-          'couchbase',
+          'couchbase<3.0.0',
           'cryptography',
           'pyjks'
       ],
