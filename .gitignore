@@ -102,6 +102,7 @@ ENV/
 
 # vscode
 .vscode
+.vscode/
 
 # nosetests
 *.noseids
