@@ -12,6 +12,8 @@ _Use of this software is subject to the
 
 Couchbase [Python SDK](https://github.com/couchbase/couchbase-python-client) version `3.2.0` or later is required.
 
+>**NOTE:** If using a `2.x` version of the Couchbase [Python SDK](https://github.com/couchbase/couchbase-python-client), use the [SDK2 branch](https://github.com/couchbase/python-couchbase-encryption/tree/SDK2) of the encryption library.
+
 ## Getting started
 
 Install the encryption library:
