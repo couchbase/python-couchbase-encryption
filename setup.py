@@ -12,7 +12,7 @@ setup(name='cbencryption',
       long_description_content_type="text/markdown",
       url='https://github.com/couchbase/python-couchbase-encryption',
       classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'License :: Other/Proprietary License',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
@@ -26,14 +26,14 @@ setup(name='cbencryption',
       author='Couchbase, Inc.',
       author_email='PythonPackage@couchbase.com',
       license='Proprietary',
+      python_requires='>=3',
       packages=[
           'cbencryption'
       ],
       include_package_data=True,
       install_requires=[
           'couchbase',
-          'cryptography',
-          'pyjks'
+          'cryptography'
       ],
       test_suite='nose.collector',
       tests_require=[

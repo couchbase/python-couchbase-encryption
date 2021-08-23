@@ -1,5 +1,6 @@
 from typing import Optional, Callable
 
+# python -m pip install pyjks
 import jks
 
 from couchbase.encryption import Key, Keyring
